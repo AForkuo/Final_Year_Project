@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="dashboard_btns">
+        <button onclick="location.href='{{ url_for('main.add_course') }}';">
+            <i class="fas fa-plus-circle"></i> Add Course
+        </button>
+        <button onclick="location.href='{{ url_for('admin.delete_courses') }}';">
+            <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Course
+        </button>
+        <button onclick="location.href='{{ url_for('main.view_courses') }}';">
+            <i class="fas fa-book"></i> View Courses
+        </button>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+<!-- templates/set_submission_date.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Set Submission Date</h2>
+<form method="POST">
+    <label for="course_id">Course:</label>
+    <select name="course_id">
+        {% for course in courses %}
+            <option value="{{ course.id }}">{{ course.name }}</option>
+        {% endfor %}
+    </select>
+    <label for="submission_date">Submission Date:</label>
+    <input type="date" name="submission_date">
+    <button type="submit">Set Date</button>
+</form>
+{% endblock %}

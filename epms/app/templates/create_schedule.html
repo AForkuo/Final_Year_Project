@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('schedules.create_schedule') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.title.label(class="form-label") }}
+        {{ form.title(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.start.label(class="form-label") }}
+        {{ form.start(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.end.label(class="form-label") }}
+        {{ form.end(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.venue.label(class="form-label") }}
+        {{ form.venue(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.examiner.label(class="form-label") }}
+        {{ form.examiner(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+{% endblock %}

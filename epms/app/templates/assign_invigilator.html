@@ -1,0 +1,27 @@
+<!-- templates/assign_invigilator.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Assign Invigilator</h2>
+<form method="POST">
+    <label for="user_id">Invigilator:</label>
+    <select name="user_id">
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+    </select>
+    <label for="venue_id">Venue:</label>
+    <select name="venue_id">
+        {% for venue in venues %}
+            <option value="{{ venue.id }}">{{ venue.name }}</option>
+        {% endfor %}
+    </select>
+    <label for="schedule_id">Schedule:</label>
+    <select name="schedule_id">
+        {% for schedule in schedules %}
+            <option value="{{ schedule.id }}">{{ schedule.details }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Assign Invigilator</button>
+</form>
+{% endblock %}

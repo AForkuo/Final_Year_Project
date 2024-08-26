@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if schedules %}
+<div id="calendar"></div>
+{% else %}
+<div class="alert alert-info">There are no schedules available.</div>
+{% endif %}
+</div>
+
+<script>
+$(document).ready(function() {
+            {% if schedules %}
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: [
+                    {% for schedule in schedules %}
+                    {
+                        title: '{{ schedule.title }}',
+                        start: '{{ schedule.start }}',
+                        end: '{{ schedule.end }}',
+                        description: '{{ schedule.venue }}'
+                    },
+                    {% endfor %}
+                ],
+                eventRender: function(event, element) {
+                    element.qtip({
+                        content: event.description
+                    });
+                }
+            });
+            {% endif %}
+        });
+</script>
+{% endblock %}

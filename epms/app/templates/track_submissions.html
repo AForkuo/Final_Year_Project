@@ -1,0 +1,17 @@
+<!-- templates/track_submissions.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Track Submissions</h2>
+<ul>
+    {% for course in courses %}
+        <li>{{ course.name }}
+            <ul>
+                {% for question in course.questions %}
+                    <li>{{ question.content }} - Status: {{ question.status }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

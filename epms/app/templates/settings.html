@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.submission_deadline.label }}<br>
+        {{ form.submission_deadline(size=32) }}
+    </div>
+    <div class="form-group">
+        {{ form.notification_settings.label }}<br>
+        {{ form.notification_settings(size=32) }}
+    </div>
+    <div class="form-group">
+        {{ form.submit(class_="btn") }}
+    </div>
+</form>
+{% endblock %}
+
+

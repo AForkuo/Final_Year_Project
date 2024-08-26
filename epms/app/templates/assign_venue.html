@@ -1,0 +1,19 @@
+<!-- templates/assign_venue.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Assign Venue</h2>
+<form method="POST">
+    <label for="venue_name">Venue Name:</label>
+    <input type="text" name="venue_name">
+    <label for="capacity">Capacity:</label>
+    <input type="number" name="capacity">
+    <label for="schedule_id">Schedule:</label>
+    <select name="schedule_id">
+        {% for schedule in schedules %}
+            <option value="{{ schedule.id }}">{{ schedule.details }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Assign Venue</button>
+</form>
+{% endblock %}

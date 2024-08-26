@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+   {% if logs %}
+       {% for log in logs %}
+         <div class="log-entry">{{ log }}</div>
+       {% endfor %} 
+    {% else %}
+        <p>No logs available.</p>
+   {% endif %}
+{% endblock %}

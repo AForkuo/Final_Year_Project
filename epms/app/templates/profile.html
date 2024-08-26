@@ -1,0 +1,30 @@
+<!-- templates/profile.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="POST" action="{{ url_for('main.profile') }}">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="{{ current_user.username }}" disabled required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="{{ current_user.email }}" disabled required>
+        </div>
+        <!-- Add other fields as necessary -->
+        <div class="form-group">
+            <button type="button" id="edit-button" onclick="enableFields()"><i class="fas fa-edit"></i> Edit Profile</button>
+            <button type="submit" id="save-button" style="display:none;"><i class="fas fa-save"></i> Save Changes</button>
+        </div>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+{% endblock %}

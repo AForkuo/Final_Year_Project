@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="dashboard_btns">
+        <button onclick="location.href='{{ url_for('main.print_questions') }}';">
+            <i class="fas fa-print"></i> Print Questions
+        </button>
+        <button onclick="location.href='{{ url_for('main.track_print_jobs') }}';">
+            <i class="fas fa-tasks"></i> Track Print Jobs
+        </button>
+    </div>
+
+
+{% endblock %}

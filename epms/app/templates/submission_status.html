@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Examiner</th>
+            <th>Submitted Questions</th>
+            <th>Pending Questions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for status in submission_status %}
+        <tr>
+            <td>{{ status.examiner.name }}</td>
+            <td>{{ status.submitted }}</td>
+            <td>{{ status.pending }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

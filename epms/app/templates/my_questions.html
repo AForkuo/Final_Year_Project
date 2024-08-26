@@ -1,0 +1,17 @@
+{% extends "upload.html" %}
+
+{% block footer %}
+<ul>
+    {% for question in questions %}
+        <li>
+            <strong>Course:</strong> {{ question.course.course_title }}<br>
+            <strong>Question Text:</strong> {{ question.question_text }}<br>
+            {% if question.file_name %}
+                <strong>File:</strong> <a href="{{ url_for('static', filename='uploads/' ~ question.file_name) }}">{{ question.file_name }}</a><br>
+            {% endif %}
+            <strong>Uploaded At:</strong> {{ question.uploaded_at }}<br>
+            <strong>Status:</strong> {{ question.status }}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

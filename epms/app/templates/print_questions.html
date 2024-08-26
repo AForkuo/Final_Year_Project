@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="text-right pt-1">
+        <button id="print-button" type="submit" disabled>Print</button>
+    </div>
+<form method="POST" action="{{ url_for('main.print_questions') }}">
+    
+    <table>
+        <thead>
+            <tr>
+                <th><input type="checkbox" onclick="selectAllQuestions(this.checked)"></th>
+                <th>Question</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+                <tr>
+                    <td><input type="checkbox" name="selected_questions" value="{{ question.id }}" onclick="togglePrintButton()"></td>
+                    <td>{{ question.question_text }}</td>
+                    <td>{{ question.status }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</form>
+</div>
+
+{% endblock %}
