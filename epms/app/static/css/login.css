@@ -31,6 +31,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: rgb(255, 255, 255);
+    width: 25rem;
     border-radius: 10px;
     box-shadow: 0px 18px 50px 0px rgba(0,0,0,0.1);
 }
@@ -39,6 +40,7 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: left;
+    width: 23rem;
     background-color: rgb(255, 255, 255);
     margin: 0px 10px;
     padding: 20px;
@@ -89,16 +91,17 @@ input {
     font-family: Poppins-Medium;
     font-size: 15px;
     line-height: 1.5;
-    color: #289cf5;
+    color: #6e7174;
     margin-top: 5px;
     align-self: flex-end;
   }
+
 
   button {
     font-family: Poppins-Medium;
     font-size: 15px;
     line-height: 1.5;
-    width: 5rem;
+    /* width: 5rem; */
     padding: 7px;
     font-size: 15px;
     color: white;
@@ -106,4 +109,17 @@ input {
     border: 1px solid #289cf5;
     border-radius: 8px;
     margin: 5px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #289cf5;
+  }
+
+  .input-group {
+    display: flex;
+  }
+
+  hr {
+    width: 23rem;
   }

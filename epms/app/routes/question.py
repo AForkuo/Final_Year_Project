@@ -7,7 +7,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request,
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from app import db
-from app.forms import UploadQuestionForm
+from app.forms import ApproveQuestionForm, UploadQuestionForm
 from app.models.question import Question
 from app.forms import PrintForm
 from app.utils.print_utils import print_file
@@ -46,8 +46,7 @@ def upload_questions():
             question_text=form.question_text.data,
             file_name = file_name,
             file_path = file_path,
-            uploaded_at=datetime.utcnow(),
-            status='pending'
+            uploaded_at=datetime.utcnow()
         )
         
         db.session.add(new_question)
@@ -78,8 +77,8 @@ def my_questions():
 @login_required
 def print_questions():
     form = PrintForm()
-    questions = Question.query.all()
-    return render_template('print_questions.html', form=form, questions=questions)
+    confirmed_questions = Question.query.filter_by(confirm_status='Confirmed').all()
+    return render_template('print_questions.html', form=form, questions=confirmed_questions, title="Print Questions")
 
 @question_bp.route('/print_selected_questions', methods=['POST'])
 @login_required
@@ -97,12 +96,13 @@ def print_selected_questions():
         flash(f'{len(questions_to_print)} questions marked as printed.', 'success')
     else:
         flash('No questions selected.', 'warning')
-    return redirect(url_for('questions.print_questions'))
+    return redirect(url_for('question.print_questions'))
 
 
 @question_bp.route('/approve_questions', methods=['GET', 'POST'])
 def approve_questions():
     # Query all questions
+    form = ApproveQuestionForm()
     questions = Question.query.all()
     
     if request.method == 'POST':
@@ -113,7 +113,7 @@ def approve_questions():
             for q_id in question_ids:
                 question = Question.query.get(int(q_id))
                 if question:
-                    question.is_approved = True
+                    question.confirm_status = "Confirmed"
             db.session.commit()
             flash('Selected questions have been approved!', 'success')
         else:
@@ -121,4 +121,4 @@ def approve_questions():
         
         return redirect(url_for('question.approve_questions'))
     
-    return render_template('questions/approve_questions.html', questions=questions)
+    return render_template('questions/approve_questions.html', questions=questions, form=form, title="Approve Questions")

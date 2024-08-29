@@ -11,11 +11,18 @@ def print_file(filename, printer_name=None):
             printer_name = win32print.GetDefaultPrinter()
         
         try:
-            win32api.ShellExecute(0, "print", filename, f'/d:"{printer_name}"', ".", 0)
+            win32api.ShellExecute(
+                0, 
+                "print", 
+                filename, 
+                f'/d:"{printer_name}"', 
+                ".", 
+                0
+            )
             print(f"Print job sent to {printer_name}")
         except Exception as e:
             print(f"Failed to print: {e}")
-    
+
     elif sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
         # Unix-based systems (Linux and macOS)
         import cups
@@ -23,10 +30,11 @@ def print_file(filename, printer_name=None):
         try:
             conn = cups.Connection()
             if printer_name is None:
-                printer_name = conn.getDefault()
-                if printer_name is None:
-                    print("No default printer found.")
+                printers = conn.getPrinters()
+                if not printers:
+                    print("No printers found.")
                     return
+                printer_name = list(printers.keys())[0]  # Use the first available printer
             
             job_id = conn.printFile(printer_name, filename, "Python Print Job", {})
             print(f"Print job sent to {printer_name}. Job ID: {job_id}")

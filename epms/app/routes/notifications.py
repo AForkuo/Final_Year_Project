@@ -11,7 +11,7 @@ notifications_bp = Blueprint('notifications', __name__, url_prefix='/notificatio
 @notifications_bp.route('/', methods=['GET'])
 @login_required
 def list_notifications():
-    notifications = Notification.query.filter_by(user_id=current_user.id).order_by(Notification.timestamp.desc()).all()
+    notifications = Notification.query.filter_by(user_id=current_user.user_id).order_by(Notification.timestamp.desc()).all()
     current_time = datetime.utcnow()
     return render_template('notifications/list.html', notifications=notifications, current_time=current_time, title="Notifications")
 
@@ -23,7 +23,7 @@ def add_notification():
         # Example: Send notification to all users (modify as needed)
         users = User.query.all()
         for user in users:
-            notification = Notification(user_id=user.id, title=form.title.data, message=form.message.data)
+            notification = Notification(user_id=user.user_id, title=form.title.data, message=form.message.data)
             db.session.add(notification)
         db.session.commit()
         flash(f'Notification "{form.title.data}" sent successfully', 'success')

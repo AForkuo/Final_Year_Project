@@ -16,17 +16,42 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/dashboard')
 @login_required
 def dashboard():
+    total_uploaded_questions = Question.query.count()
+    total_approved_questions = Question.query.filter_by(confirm_status='Confirmed').count()
+    total_pending_questions = Question.query.filter_by(confirm_status='unconfirmed').count()
+    printed_questions = Question.query.filter_by(print_status='printed').count()
+    pending_printing_questions = Question.query.filter_by(print_status='pending').count()
+    total_courses = Course.query.count()
+    total_users = User.query.count()
+    chief_examiners = User.query.filter_by(role='chief_examination_officer').count()
+    examiners = User.query.filter_by(role='examiner').count()
+    printing_agents = User.query.filter_by(role='printing_agent').count()
+    admins = User.query.filter_by(role='admin').count()
+
+    
     data = {}
     if current_user.role == 'chief_examination_officer':
-        data['pending_questions'] = Question.query.filter_by(status='pending').all()
+        # data['pending_questions'] = Question.query.filter_by(status='pending').all()
         data['courses'] = Course.query.all()
     # elif current_user.role == 'examiner':
         # data['my_questions'] = Question.query.filter_by(examiner_id=current_user.user_id).all()
     elif current_user.role == 'admin':
         data['users'] = User.query.all()
-    elif current_user.role == 'printing_agent':
-        data['approved_questions'] = Question.query.filter_by(status='approved').all()
-    return render_template('dashboard.html', data=data, title="Dashboard")
+    # elif current_user.role == 'printing_agent':
+    #     data['approved_questions'] = Question.query.filter_by(status='approved').all()
+    return render_template('dashboard.html',
+                            data=data, title="Dashboard",
+                            total_uploaded_questions=total_uploaded_questions,
+                            total_approved_questions=total_approved_questions,
+                            total_pending_questions=total_pending_questions,
+                            printed_questions=printed_questions,
+                            pending_printing_questions=pending_printing_questions,
+                            total_courses=total_courses,
+                            total_users=total_users,
+                            chief_examiners=chief_examiners,
+                            examiners=examiners,
+                            printing_agents=printing_agents,
+                            admins=admins)
 
 
 @main_bp.route('/profile', methods=['GET', 'POST'])
@@ -76,34 +101,12 @@ def view_courses():
 
 
 
-@main_bp.route('/print_questions')
-@login_required
-def print_questions():
-    questions = Question.query.all()
-    if request.method == 'POST':
-        selected_questions = request.form.getlist('selected_questions')
-        if selected_questions:
-            # Logic for printing the questions
-            flash(f"Printing {len(selected_questions)} question(s).")
-            # Update question status to 'printed' if necessary
-            for question_id in selected_questions:
-                question = Question.query.get(question_id)
-                question.status = 'printed'
-                db.session.commit()
-            return redirect(url_for('print_questions'))
-    return render_template('print_questions.html', questions=questions, title='Print Question')
-
 @main_bp.route('/assign_invigilators')
 @login_required
 def assign_invigilators():
     # Add logic for assigning invigilators
     return "Assign Invigilators Page"
 
-@main_bp.route('/approve_questions')
-@login_required
-def approve_questions():
-    # Add logic for approving questions
-    return "Approve Questions Page"
 
 @main_bp.route('/set_deadlines')
 @login_required

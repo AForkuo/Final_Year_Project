@@ -20,6 +20,18 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
 
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    role = SelectField('Log in as:', choices=[
+        ('chief_examination_officer', 'Chief Examination Officer'),
+        ('examiner', 'Examiner'),
+        ('admin', 'Admin'),
+        ('printing_agent', 'Printing Agent')
+    ], validators=[DataRequired()])
+    submit = SubmitField('Login')
+
+
 class SystemSettingsForm(FlaskForm):
     submission_deadline = StringField('Submission Deadline', validators=[DataRequired()])
     notification_settings = StringField('Notification Settings', validators=[DataRequired()])
@@ -47,6 +59,8 @@ class UploadQuestionForm(FlaskForm):
         self.course.choices = [(course.course_code, course.course_title) for course in Course.query.all()]
 
    
+class ApproveQuestionForm(FlaskForm):
+    submit = SubmitField('Approve')
 
 
 class AddCourseForm(FlaskForm):
@@ -71,3 +85,13 @@ class ScheduleForm(FlaskForm):
 
 class PrintForm(FlaskForm):
     submit = SubmitField('Print')
+
+
+class ForgotPasswordForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Send Reset Link')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('New Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')

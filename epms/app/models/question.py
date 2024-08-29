@@ -12,8 +12,8 @@ class Question(db.Model):
     file_name = db.Column(db.String(255))
     file_path = db.Column(db.String(255))
     uploaded_at = db.Column(db.DateTime)
-    status = db.Column(db.String(50))  # e.g., 'submitted', 'pending', 'approved'
-    is_approved = db.Column(db.Boolean, default=False)
+    print_status = db.Column(db.String(20), nullable=False, default='pending')
+    confirm_status = db.Column(db.String(20), nullable=False, default='unconfirmed')
     course = db.relationship('Course', back_populates='questions')
 
     def __repr__(self):

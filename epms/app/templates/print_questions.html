@@ -1,32 +1,107 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <div class="text-right pt-1">
-        <button id="print-button" type="submit" disabled>Print</button>
-    </div>
-<form method="POST" action="{{ url_for('main.print_questions') }}">
-    
-    <table>
+
+<!-- Start of form -->
+<form id="print-form" method="POST" action="{{ url_for('question.print_selected_questions') }}">
+    {{ form.csrf_token() }}  <!-- Ensure the CSRF token is included -->
+
+    <!-- Print button -->
+    <button id="print-button" class="btn btn-primary mb-3" disabled>Print Selected</button>
+</form> <!-- End of form -->
+
+    <!-- Table displaying questions -->
+    <table class="table">
         <thead>
             <tr>
-                <th><input type="checkbox" onclick="selectAllQuestions(this.checked)"></th>
-                <th>Question</th>
-                <th>Status</th>
+                <th scope="col">
+                    <input type="checkbox" id="select-all">
+                </th>
+                <th scope="col">Course</th>
+                <th scope="col">Question</th>
+                <th scope="col">Print Status</th>
             </tr>
         </thead>
         <tbody>
             {% for question in questions %}
-                <tr>
-                    <td><input type="checkbox" name="selected_questions" value="{{ question.id }}" onclick="togglePrintButton()"></td>
-                    <td>{{ question.question_text }}</td>
-                    <td>{{ question.status }}</td>
-                </tr>
+            <tr>
+                <td>
+                    <!-- Checkbox for selecting individual questions -->
+                    <input type="checkbox" class="select-question" data-question-id="{{ question.id }}">
+                </td>
+                <td>{{ question.course_code }}</td>
+                <td>
+                    {% if question.file_name %}
+                        <!-- Link to open the PDF in a new window/tab -->
+                        <a href="{{ url_for('static', filename='uploads/' ~ question.file_name) }}" target="_blank">
+                            View File
+                        </a>
+                    {% else %}
+                        No file uploaded
+                    {% endif %}
+                </td>
+                <td>{{ question.print_status }}</td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
-    
-</form>
-</div>
+
+
+<script>
+    // JavaScript to handle checkbox selection and enable/disable the print button
+    document.addEventListener('DOMContentLoaded', function() {
+        const printButton = document.getElementById('print-button');
+        const selectAllCheckbox = document.getElementById('select-all');
+        const questionCheckboxes = document.querySelectorAll('.select-question');
+
+        function togglePrintButton() {
+            const anyChecked = Array.from(questionCheckboxes).some(checkbox => checkbox.checked);
+            printButton.disabled = !anyChecked;
+        }
+
+        selectAllCheckbox.addEventListener('change', function() {
+            questionCheckboxes.forEach(checkbox => checkbox.checked = this.checked);
+            togglePrintButton();
+        });
+
+        questionCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', togglePrintButton);
+        });
+
+        printButton.addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent default form submission
+
+            const selectedQuestionIds = Array.from(questionCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.getAttribute('data-question-id'));
+
+            if (selectedQuestionIds.length > 0) {
+                // Find the CSRF token from the hidden input field
+                const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+
+                fetch('{{ url_for("question.print_selected_questions") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken  // Include CSRF token in headers
+                    },
+                    body: JSON.stringify({ question_ids: selectedQuestionIds })
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Print job successfully submitted.');
+                    } else {
+                        alert('Failed to submit print job.');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                    alert('Error occurred while submitting print job.');
+                });
+            } else {
+                alert('Please select at least one question to print.');
+            }
+        });
+    });
+</script>
 
 {% endblock %}

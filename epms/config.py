@@ -13,3 +13,10 @@ class Config:
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16 MB limit
     ALLOWED_EXTENSIONS = {'.pdf', '.doc', '.docx', '.txt'}
     
+
+    MAIL_SERVER ='live.smtp.mailtrap.io'
+    MAIL_PORT = 587
+    MAIL_USERNAME = 'api'
+    MAIL_PASSWORD = '7a1b87f33570d746d78b533a11a53372'
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False

@@ -205,11 +205,11 @@ a[data-toggle="collapse"] {
      Profile
    ----------------------------------------------------------*/
 
-.container {
+.main {
     height: 100vh;
     /* margin: 0px 590px; */
-    padding: 40px;
-    border: 1px solid #7e7b7b;
+    /* padding: 40px; */
+    /* border: 1px solid #7e7b7b; */
     background-color: #e7e7e7;
     overflow-y: scroll;
 }

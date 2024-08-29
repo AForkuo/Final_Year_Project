@@ -6,11 +6,16 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from config import Config
+from flask_wtf.csrf import CSRFProtect
+from flask_mail import Mail
 
 db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
+csrf = CSRFProtect()
+mail = Mail()
+
 
 def create_app():
     app = Flask(__name__)
@@ -35,6 +40,8 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
+    csrf.init_app(app)
+    mail.init_app(app)
 
     from .models import User  # Import your models
 

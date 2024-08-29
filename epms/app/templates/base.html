@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
@@ -34,13 +35,7 @@
             printButton.disabled = checkboxes.length === 0;
         }
 
-        function selectAllQuestions(checked) {
-            const checkboxes = document.querySelectorAll('input[name="selected_questions"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = checked;
-            });
-            togglePrintButton();
-        }
+        
 
         function toggleDeleteButton() {
             const checkboxes = document.querySelectorAll('input[name="selected_courses"]:checked');
@@ -136,7 +131,18 @@
         </nav> -->
 
         <!-- Page Content Goes Here -->
-      <div class="container shadow">
+      <div class="container main shadow">
+        <div class="container mt-4">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                  {% for category, message in messages %}
+                      <div class="alert alert-{{ category }} fade show" role="alert">
+                          {{ message }}
+                      </div>
+                  {% endfor %}
+              {% endif %}
+          {% endwith %}
+      </div>
         <h3>{{ title }}</h3>
         <hr />
         {% block content %} {% endblock content %}
@@ -149,5 +155,15 @@
     <script src="{{ url_for('static',filename='js/popper.js') }}"></script>
     <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+
+    <script>
+      // JavaScript to make alerts disappear after 3 seconds
+      $(document).ready(function() {
+          // Hide alert after 5 seconds
+          setTimeout(function() {
+              $(".alert").alert('close');
+          }, 2000);
+      });
+  </script>
   </body>
 </html>
