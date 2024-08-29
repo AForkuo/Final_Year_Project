@@ -44,7 +44,7 @@ def create_app():
     from .routes.admin import admin_bp
     from .routes.notifications import notifications_bp
     from .routes.question import question_bp
-    from .routes.schedule import schedules
+   
     
 
     app.register_blueprint(main_bp)
@@ -52,7 +52,7 @@ def create_app():
     app.register_blueprint(admin_bp)
     app.register_blueprint(notifications_bp)
     app.register_blueprint(question_bp)
-    app.register_blueprint(schedules)
+  
 
     return app
 

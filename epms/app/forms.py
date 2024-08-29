@@ -37,7 +37,7 @@ class UploadQuestionForm(FlaskForm):
     question_text = TextAreaField('Question Text', validators=[Optional()])
     question_file = FileField('Question File', validators=[
         FileRequired(),
-        FileAllowed(['jpg', 'png', 'pdf', 'docx', 'txt'], 'Only image, document, and text files are allowed!')
+        FileAllowed(['pdf', '.doc', 'docx', 'txt'], 'Only document, and text files are allowed!')
     ])
     status = SelectField('Status', choices=[('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')])
     submit = SubmitField('Upload')

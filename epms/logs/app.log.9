@@ -1,17 +1,4 @@
-2024-07-29 22:49:20,003 ERROR: Exception on /profile [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
-Traceback (most recent call last):
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 2423, in _determine_joins
-    self.primaryjoin = join_condition(
-                       ^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/util.py", line 123, in join_condition
-    return Join._join_condition(
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/selectable.py", line 1354, in _join_condition
-    raise exc.NoForeignKeysError(
-sqlalchemy.exc.NoForeignKeysError: Can't find any foreign key relationships between 'course' and 'question'.
-
-The above exception was the direct cause of the following exception:
-
+2024-08-26 02:28:44,532 ERROR: Exception on / [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -25,9 +12,9 @@ Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 284, in decorated_view
-    elif not current_user.is_authenticated:
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 12, in login
+    if current_user.is_authenticated:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/werkzeug/local.py", line 318, in __get__
     obj = instance._get_current_object()
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -76,38 +63,30 @@ Traceback (most recent call last):
                                 ^^^^^^^^^^^^^^
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 2310, in __init__
     self._determine_joins()
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 2444, in _determine_joins
-    raise sa_exc.NoForeignKeysError(
-sqlalchemy.exc.NoForeignKeysError: Could not determine join condition between parent/child tables on relationship Course.questions - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression.
-2024-07-29 22:52:08,802 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-20 11:30:46,378 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-20 12:08:56,701 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-20 12:16:26,631 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-20 12:34:18,513 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-20 23:12:45,224 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-20 23:30:44,779 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 00:21:33,634 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 00:21:41,708 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 00:39:41,884 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 00:48:35,116 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 00:53:17,216 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 00:56:25,311 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 00:57:41,179 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:00:00,911 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:01:05,650 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:01:47,689 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:04:09,089 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:09:56,980 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:10:45,430 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:12:17,849 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:13:43,413 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:15:22,293 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:17:00,834 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:17:40,613 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:21:57,432 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:23:11,546 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:25:07,863 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:26:37,290 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:27:52,038 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:28:22,193 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-22 01:29:44,633 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/orm/relationships.py", line 2423, in _determine_joins
+    self.primaryjoin = join_condition(
+                       ^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/util.py", line 123, in join_condition
+    return Join._join_condition(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/selectable.py", line 1337, in _join_condition
+    constraints = cls._joincond_scan_left_right(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/selectable.py", line 1446, in _joincond_scan_left_right
+    col = fk.get_referent(b)
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/schema.py", line 3036, in get_referent
+    return table.columns.corresponding_column(self.column)  # type: ignore
+                                              ^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 1141, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/schema.py", line 3173, in column
+    return self._resolve_column()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/schema.py", line 3212, in _resolve_column
+    return self._link_to_col_by_colstring(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/schema.py", line 3134, in _link_to_col_by_colstring
+    raise exc.NoReferencedColumnError(
+sqlalchemy.exc.NoReferencedColumnError: Could not initialize target column for ForeignKey 'user.id' on table 'schedule': table 'user' has no column named 'id'

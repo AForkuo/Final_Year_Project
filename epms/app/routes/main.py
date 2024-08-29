@@ -4,10 +4,9 @@ from functools import wraps
 from werkzeug.utils import secure_filename
 import app
 from app.forms import AddCourseForm, UploadQuestionForm
-from app.models.examiner import Examiner
 from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
 from flask_login import login_required, current_user
-from app.models import User, Question, Course, Schedule, Venue, InvigilatorAssignment, Notification
+from app.models import User, Question, Course, Notification
 from app.utils.notifications import send_notification
 from app import db
 
@@ -21,15 +20,12 @@ def dashboard():
     if current_user.role == 'chief_examination_officer':
         data['pending_questions'] = Question.query.filter_by(status='pending').all()
         data['courses'] = Course.query.all()
-    elif current_user.role == 'examiner':
-        data['my_questions'] = Question.query.filter_by(examiner_id=current_user.id).all()
+    # elif current_user.role == 'examiner':
+        # data['my_questions'] = Question.query.filter_by(examiner_id=current_user.user_id).all()
     elif current_user.role == 'admin':
         data['users'] = User.query.all()
     elif current_user.role == 'printing_agent':
         data['approved_questions'] = Question.query.filter_by(status='approved').all()
-    elif current_user.role == 'chief_invigilator':
-        data['venues'] = Venue.query.all()
-        data['assignments'] = InvigilatorAssignment.query.all()
     return render_template('dashboard.html', data=data, title="Dashboard")
 
 

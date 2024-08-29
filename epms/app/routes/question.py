@@ -1,5 +1,6 @@
 from datetime import datetime
 import os
+import uuid
 import app
 from app.models.course import Course
 from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app, send_from_directory
@@ -15,8 +16,6 @@ question_bp = Blueprint('question', __name__, url_prefix='/questions')
 
 
 
-
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
@@ -25,70 +24,41 @@ def allowed_file(filename):
 @login_required
 def upload_questions():
     form = UploadQuestionForm()
-    if form.validate_on_submit():
-        file = form.question_file.data
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            flash('File uploaded successfully', 'success')
-            return "file uploaded success"
-        else:
-            flash('Invalid file type', 'error')
+    if request.method == "POST":
+        file = request.files['question_file']
 
-    return render_template('questions/upload.html', form=form)
-
-# def upload_question():
-#     form = UploadQuestionForm()
-#     # if request.method == "POST":
-#     #     uploaded_file = request.files['file']
-#     #     if uploaded_file.filename != '':
-#     #         uploaded_file.save(uploaded_file.filename)
+        if file is None:
+            flash('No file part', 'danger')
+            return redirect(request.url)
         
-#     if form.validate_on_submit():
+        if file.filename == '':
+            flash('No selected file', 'danger')
+            return redirect(request.url)
 
-#         # new_question = Question(
-#         #         examiner_id=current_user.id,  # Ensure this matches your model's field
-#         #         question_text=form.question_text.data,
-                
-                
-#         #         uploaded_at=datetime.utcnow(),
-#         #         status='pending',
-#         #         course_code=form.course.data
-                
-#         #     )
-#         file = form.question_file.data
+        filename = secure_filename(file.filename)
+        file_name = str(uuid.uuid1()) + "_" + filename
 
-#         # if file is None:
-#         #     flash('No file part', 'danger')
-#         #     return redirect(request.url)
+        file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file_name)
+        file.save(file_path)
+        
+        new_question = Question(
+            course_code=form.course.data,
+            question_text=form.question_text.data,
+            file_name = file_name,
+            file_path = file_path,
+            uploaded_at=datetime.utcnow(),
+            status='pending'
+        )
+        
+        db.session.add(new_question)
+        db.session.commit()
 
-#         # if file.filename == '':
-#         #     flash('No selected file', 'danger')
-#         #     return redirect(request.url)
+        flash('File successfully uploaded', 'success')
+        return redirect(url_for('question.upload_questions'))
 
-#         filename = secure_filename(file.filename)
-#         # new_question.file_name=filename
-#         form.fileName.file.save(os.path.join(app.Config['UPLOAD_FOLDER'], filename))
-       
-#         # new_question.file_path=file_path
+    return render_template('questions/upload.html', form=form, title="File Upload")
 
-            
-#         # path_list = new_question.file_path.split('/')[1:]
-#         # new_path = '/'.join(path_list)
-
-#         # Save file info to the database
-
-#         # new_question.file_path = new_path
-#         # db.session.add(new_question)
-#         # db.session.commit()
-
-#         # flash('File successfully uploaded', 'success')
-#         return redirect(url_for('question.upload_question'))
-
-#     return render_template('questions/upload.html', form=form, title="File Upload")
     
-    
-
 
 @question_bp.route('/my_questions')
 @login_required
@@ -128,3 +98,27 @@ def print_selected_questions():
     else:
         flash('No questions selected.', 'warning')
     return redirect(url_for('questions.print_questions'))
+
+
+@question_bp.route('/approve_questions', methods=['GET', 'POST'])
+def approve_questions():
+    # Query all questions
+    questions = Question.query.all()
+    
+    if request.method == 'POST':
+        question_ids = request.form.getlist('question_ids')  # Get selected question IDs
+        
+        # Update the approved status of selected questions
+        if question_ids:
+            for q_id in question_ids:
+                question = Question.query.get(int(q_id))
+                if question:
+                    question.is_approved = True
+            db.session.commit()
+            flash('Selected questions have been approved!', 'success')
+        else:
+            flash('No questions selected for approval.', 'danger')
+        
+        return redirect(url_for('question.approve_questions'))
+    
+    return render_template('questions/approve_questions.html', questions=questions)

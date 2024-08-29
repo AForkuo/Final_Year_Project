@@ -1,4 +1,4 @@
-2024-08-25 13:15:50,162 ERROR: Exception on /questions/upload_questions [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+2024-08-26 04:25:52,304 ERROR: Exception on /questions/upload_questions [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,35 +15,81 @@ Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/question.py", line 38, in upload_questions
-    return render_template('questions/upload.html', form=form)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/questions/upload.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/base.html", line 142, in top-level template code
-    {% block content %} {% endblock content %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/questions/upload.html", line 92, in block 'content'
-    window.location.href = "{{ url_for('question.upload_question') }}"; // Redirect after success
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1084, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1073, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 924, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'question.upload_question'. Did you mean 'question.upload_questions' instead?
-2024-08-25 13:16:33,710 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
-2024-08-25 13:17:21,029 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/question.py", line 35, in upload_questions
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
+                           ^^^^^^^^^^
+AttributeError: module 'app' has no attribute 'config'. Did you mean: 'Config'?
+2024-08-26 04:32:37,109 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 14:59:12,233 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 15:13:00,393 ERROR: Exception on /questions/upload_questions [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/question.py", line 35, in upload_questions
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
+                             ^^^^^^^^^^
+AttributeError: module 'app' has no attribute 'config'. Did you mean: 'Config'?
+2024-08-26 15:29:18,643 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 15:29:30,067 ERROR: Exception on /questions/upload_questions [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/question.py", line 35, in upload_questions
+    file_path = os.path.join(app.config['UPLOAD_PATH'], file_name)
+                             ^^^^^^^^^^
+AttributeError: module 'app' has no attribute 'config'. Did you mean: 'Config'?
+2024-08-26 15:38:45,385 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 15:51:07,772 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 15:51:38,927 ERROR: Exception on /questions/upload_questions [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/question.py", line 40, in upload_questions
+    file_name = file_name,
+                ^^^^^^^^^
+UnboundLocalError: cannot access local variable 'file_name' where it is not associated with a value
+2024-08-26 15:55:31,154 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 15:58:46,545 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 16:08:19,699 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 16:12:33,689 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 16:47:04,800 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
+2024-08-26 16:47:24,113 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:33]
