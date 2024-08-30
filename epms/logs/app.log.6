@@ -1,4 +1,4 @@
-2024-08-29 01:48:43,144 ERROR: Exception on /print_questions [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+2024-08-29 12:32:45,951 ERROR: Exception on /forgot_password [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,12 +12,9 @@ Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/main.py", line 94, in print_questions
-    return render_template('print_questions.html', questions=questions, title='Print Question')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 68, in forgot_password
+    return render_template('forgot_password.html', form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
     return _render(app, template, context)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -28,20 +25,20 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/print_questions.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/base.html", line 147, in top-level template code
-    {% block content %} {% endblock content %}
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/forgot_password.html", line 29, in top-level template code
+    <form action="{{ url_for('auth.reset_password') }}" method="POST">
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/print_questions.html", line 7, in block 'content'
-    {{ form.csrf_token() }}  <!-- Ensure the CSRF token is included -->
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-08-29 02:06:03,354 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
-2024-08-29 02:06:16,510 ERROR: Exception on /print_questions [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'auth.reset_password'. Did you forget to specify values ['token']?
+2024-08-29 12:36:28,884 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:36:31,822 ERROR: Exception on /forgot_password [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -55,12 +52,9 @@ Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/main.py", line 94, in print_questions
-    return render_template('print_questions.html', questions=questions, title='Print Question')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 68, in forgot_password
+    return render_template('forgot_password.html', form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
     return _render(app, template, context)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -71,24 +65,56 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/print_questions.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/base.html", line 147, in top-level template code
-    {% block content %} {% endblock content %}
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/forgot_password.html", line 54, in top-level template code
+    <a href="{{ url_for('login') }}" class="link-secondary text-decoration-none">Log In</a>
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/print_questions.html", line 7, in block 'content'
-    {{ form.csrf_token() }}  <!-- Ensure the CSRF token is included -->
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-08-29 02:08:49,333 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
-2024-08-29 02:11:07,409 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
-2024-08-29 02:12:59,076 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
-2024-08-29 02:13:12,223 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
-2024-08-29 02:20:00,694 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
-2024-08-29 02:27:04,554 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
-2024-08-29 02:53:22,664 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
-2024-08-29 02:53:43,756 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
-2024-08-29 03:26:50,148 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'login'. Did you mean 'auth.login' instead?
+2024-08-29 12:36:58,806 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:40:22,631 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:42:16,825 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:44:02,043 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:44:13,207 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:48:15,473 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:52:52,218 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:53:29,392 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:54:47,169 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:56:28,917 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:57:03,578 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 12:59:34,600 ERROR: Exception on /forgot_password [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 61, in forgot_password
+    mail.send(msg)
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 539, in send
+    with self.connect() as connection:
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 127, in __enter__
+    self.host = self.configure_host()
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 144, in configure_host
+    host = smtplib.SMTP(self.mail.server, self.mail.port)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/smtplib.py", line 258, in __init__
+    raise SMTPConnectError(code, msg)
+smtplib.SMTPConnectError: (451, b'Request action aborted on MFE proxy, SMTP server is not available.')
+2024-08-29 13:02:34,835 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:03:40,345 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:04:21,829 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]

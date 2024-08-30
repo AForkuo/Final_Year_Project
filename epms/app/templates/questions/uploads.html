@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard_btns">
+    <button onclick="location.href='{{ url_for('question.upload_questions') }}';">
+        <i class="fas fa-check"></i> Upload Questions
+    </button>
+    <button onclick="location.href='{{ url_for('main.set_deadlines') }}';">
+        <i class="fas fa-clock"></i> View Uploads
+    </button>
+</div>
+{% endblock %}

@@ -19,6 +19,11 @@ question_bp = Blueprint('question', __name__, url_prefix='/questions')
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
+@question_bp.route('/uploads')
+@login_required
+def uploads():
+    return render_template('questions/uploads.html', title='Uploads')
+
 
 @question_bp.route('/upload_questions', methods=['GET', 'POST'])
 @login_required
@@ -55,7 +60,7 @@ def upload_questions():
         flash('File successfully uploaded', 'success')
         return redirect(url_for('question.upload_questions'))
 
-    return render_template('questions/upload.html', form=form, title="File Upload")
+    return render_template('questions/upload_questions.html', form=form, title="File Upload")
 
     
 
@@ -122,3 +127,11 @@ def approve_questions():
         return redirect(url_for('question.approve_questions'))
     
     return render_template('questions/approve_questions.html', questions=questions, form=form, title="Approve Questions")
+
+
+@question_bp.route('/my_uploads', methods=['GET', 'POST'])
+def my_uploads():
+    # Query all questions
+    questions = Question.query.filter_by(user_id=current_user.user_id).all()
+    
+    return render_template('questions/my_uploads.html', questions=questions, title="Uploaded Questions")

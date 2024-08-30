@@ -1,123 +1,23 @@
-2024-08-29 03:36:42,724 ERROR: Exception on /forgot_password [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
-Traceback (most recent call last):
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 61, in forgot_password
-    mail.send(msg)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 539, in send
-    with self.connect() as connection:
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 127, in __enter__
-    self.host = self.configure_host()
-                ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 144, in configure_host
-    host = smtplib.SMTP(self.mail.server, self.mail.port)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/smtplib.py", line 255, in __init__
-    (code, msg) = self.connect(host, port)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/smtplib.py", line 341, in connect
-    self.sock = self._get_socket(host, port, self.timeout)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/smtplib.py", line 312, in _get_socket
-    return socket.create_connection((host, port), timeout,
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/socket.py", line 828, in create_connection
-    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/socket.py", line 963, in getaddrinfo
-    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-socket.gaierror: [Errno -3] Temporary failure in name resolution
-2024-08-29 03:44:11,180 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
-2024-08-29 03:47:02,361 ERROR: Exception on /forgot_password [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
-Traceback (most recent call last):
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 61, in forgot_password
-    mail.send(msg)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 539, in send
-    with self.connect() as connection:
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 127, in __enter__
-    self.host = self.configure_host()
-                ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 144, in configure_host
-    host = smtplib.SMTP(self.mail.server, self.mail.port)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/smtplib.py", line 258, in __init__
-    raise SMTPConnectError(code, msg)
-smtplib.SMTPConnectError: (451, b'Request action aborted on MFE proxy, SMTP server is not available.')
-2024-08-29 03:48:01,854 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
-2024-08-29 03:50:15,060 ERROR: Exception on /forgot_password [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
-Traceback (most recent call last):
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 61, in forgot_password
-    mail.send(msg)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 539, in send
-    with self.connect() as connection:
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 127, in __enter__
-    self.host = self.configure_host()
-                ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 144, in configure_host
-    host = smtplib.SMTP(self.mail.server, self.mail.port)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/smtplib.py", line 258, in __init__
-    raise SMTPConnectError(code, msg)
-smtplib.SMTPConnectError: (451, b'Request action aborted on MFE proxy, SMTP server is not available.')
-2024-08-29 03:54:12,456 ERROR: Exception on /forgot_password [POST] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
-Traceback (most recent call last):
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 61, in forgot_password
-    mail.send(msg)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 539, in send
-    with self.connect() as connection:
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 127, in __enter__
-    self.host = self.configure_host()
-                ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_mail/__init__.py", line 144, in configure_host
-    host = smtplib.SMTP(self.mail.server, self.mail.port)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/smtplib.py", line 258, in __init__
-    raise SMTPConnectError(code, msg)
-smtplib.SMTPConnectError: (451, b'Request action aborted on MFE proxy, SMTP server is not available.')
+2024-08-29 13:05:07,414 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:06:15,275 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:07:01,309 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:08:33,766 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:09:13,916 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:10:26,057 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:11:16,528 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:11:45,099 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:12:09,895 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:12:31,961 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:13:02,688 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:14:28,556 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:15:36,357 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:22:40,603 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:24:47,452 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:31:21,515 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:35:52,236 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:37:13,908 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:44:34,860 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:45:21,458 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:46:06,107 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:46:46,818 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]
+2024-08-29 13:47:21,229 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:38]

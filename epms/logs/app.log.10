@@ -1,4 +1,12 @@
-2024-08-26 20:11:37,991 ERROR: Exception on / [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+2024-08-27 08:30:28,889 ERROR: Exception on /questions/print_questions [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/base.py", line 2181, in _entity_namespace_key
+    return getattr(ns, key)  # type: ignore
+           ^^^^^^^^^^^^^^^^
+AttributeError: type object 'Question' has no attribute 'confirmed_status'. Did you mean: 'confirm_status'?
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,26 +20,23 @@ Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 30, in login
-    return render_template('login.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/login.html", line 20, in top-level template code
-    {{ form.csrf_token }}
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-08-26 20:11:40,074 ERROR: Exception on / [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/question.py", line 80, in print_questions
+    confirmed_questions = Question.query.filter_by(confirmed_status='confirmed').all()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 1984, in filter_by
+    _entity_namespace_key(from_entity, key) == value
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/sqlalchemy/sql/base.py", line 2183, in _entity_namespace_key
+    raise exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Entity namespace for "question" has no property "confirmed_status"
+2024-08-27 08:32:35,783 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
+2024-08-27 08:39:45,342 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
+2024-08-27 08:44:40,383 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
+2024-08-29 00:39:22,705 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
+2024-08-29 00:42:06,547 ERROR: Exception on /notifications/ [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -45,26 +50,14 @@ Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 30, in login
-    return render_template('login.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/login.html", line 20, in top-level template code
-    {{ form.csrf_token }}
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-08-26 20:11:41,360 ERROR: Exception on / [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/notifications.py", line 14, in list_notifications
+    notifications = Notification.query.filter_by(user_id=current_user.id).order_by(Notification.timestamp.desc()).all()
+                                                         ^^^^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'id'
+2024-08-29 00:46:39,729 ERROR: Exception on /notifications/ [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -78,58 +71,14 @@ Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 30, in login
-    return render_template('login.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/login.html", line 20, in top-level template code
-    {{ form.csrf_token }}
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-08-26 20:12:03,044 ERROR: Exception on / [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
-Traceback (most recent call last):
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/auth.py", line 30, in login
-    return render_template('login.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/login.html", line 20, in top-level template code
-    {{ form.csrf_token }}
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-08-26 20:12:57,511 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
-2024-08-26 20:37:33,209 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
-2024-08-26 20:59:18,603 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/notifications.py", line 14, in list_notifications
+    notifications = Notification.query.filter_by(user_id=current_user.id).order_by(Notification.timestamp.desc()).all()
+                                                         ^^^^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'id'
+2024-08-29 00:57:34,179 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
+2024-08-29 00:59:17,113 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
+2024-08-29 01:04:47,944 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]
+2024-08-29 01:48:35,267 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:35]

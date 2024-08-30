@@ -74,7 +74,7 @@
                 </li>
             {% elif current_user.role == 'examiner' %}
                 <li>
-                  <a href="{{ url_for('question.upload_questions') }}">Upload Question</a>
+                  <a href="{{ url_for('question.uploads') }}">Uploads</a>
                 </li>
             {% elif current_user.role == 'admin' %}
                 <li>

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Question Text</th>
+                    <th>File</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in questions %}
+                <tr>
+                    <td>{{ question.course_code }}</td>
+                    <td>{{ question.question_text }}</td>
+                    <td>
+                        {% if question.file_name %}
+                            <!-- Link to open the PDF in a new window/tab -->
+                            <a href="{{ url_for('static', filename='uploads/' ~ question.file_name) }}" target="_blank">
+                                View File
+                            </a>
+                        {% else %}
+                            No file uploaded
+                        {% endif %}
+                    </td>
+                    <td>{{ question.confirm_status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}
