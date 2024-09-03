@@ -114,7 +114,3 @@ If you have any questions, suggestions, or need support, feel free to contact us
 
 - **Project Maintainer**: Abraham Forkuo
 - **Email**: abrahamforkuo8@gmail.com
-
----
-
-Feel free to customize this README according to your project's specific needs and details!
