@@ -31,14 +31,7 @@
                 </td>
                 <td>{{ question.course_code }}</td>
                 <td>
-                    {% if question.file_name %}
-                        <!-- Link to open the PDF in a new window/tab -->
-                        <a href="{{ url_for('static', filename='uploads/' ~ question.file_name) }}" target="_blank">
-                            View File
-                        </a>
-                    {% else %}
-                        No file uploaded
-                    {% endif %}
+                    <a href="{{ url_for('question.view_file', filename=question.file_name) }}" target="_blank">View File</a>
                 </td>
                 <td>{{ question.print_status }}</td>
             </tr>

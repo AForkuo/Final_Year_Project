@@ -1,9 +1,10 @@
 # routes/main.py
 from datetime import datetime
 from functools import wraps
+from app.models.schedule import Schedule
 from werkzeug.utils import secure_filename
 import app
-from app.forms import AddCourseForm, UploadQuestionForm
+from app.forms import AddCourseForm, ScheduleForm, UploadQuestionForm
 from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
 from flask_login import login_required, current_user
 from app.models import User, Question, Course, Notification
@@ -200,4 +201,72 @@ def printing_and_dist():
     # Add logic for assigning venues
     return render_template("printing_and_dist.html", title="Printing and Distribution")
 
+@main_bp.route('/schedule')
+@login_required
+def view_schedule():
+    # Get filter values from request.args
+    exam_date = request.args.get('exam_date')
+    course_code = request.args.get('course_code')
+    examiner_id = request.args.get('examiner')
 
+    # Build query based on filters
+    query = Schedule.query
+
+    if exam_date:
+        query = query.filter(Schedule.exam_date == exam_date)
+    if course_code:
+        query = query.filter(Schedule.course_code == course_code)
+    if examiner_id:
+        query = query.filter(Schedule.examiner_id == examiner_id)
+
+    schedules = query.all()
+    
+    courses = Course.query.all()  # Assuming you have a Course model
+    examiners = User.query.filter_by(role='examiner').all()  # Assuming examiners have a 'role' attribute
+
+    return render_template('schedule.html', schedules=schedules, courses=courses, examiners=examiners, title="Exam Schedule")
+
+
+@main_bp.route('/schedule/add', methods=['GET', 'POST'])
+@login_required
+def add_schedule():
+    form = ScheduleForm()
+    form.course_code.choices = [(course.course_code, course.course_code) for course in Course.query.all()]
+    form.examiner_id.choices = [(examiner.user_id, examiner.username) for examiner in User.query.filter_by(role='examiner').all()]
+
+    if form.validate_on_submit():
+        new_schedule = Schedule(
+            exam_date=form.exam_date.data,
+            start_time=form.start_time.data,
+            end_time=form.end_time.data,
+            venue=form.venue.data,
+            course_code=form.course_code.data,
+            examiner_id=form.examiner_id.data
+        )
+        db.session.add(new_schedule)
+        db.session.commit()
+        flash('Schedule added successfully!', 'success')
+        return redirect(url_for('main.view_schedule'))
+
+    return render_template('add_edit_schedule.html', form=form, title="Add Schedule")
+
+@main_bp.route('/schedule/edit/<int:schedule_id>', methods=['GET', 'POST'])
+@login_required
+def edit_schedule(schedule_id):
+    schedule = Schedule.query.get_or_404(schedule_id)
+    form = ScheduleForm(obj=schedule)
+    form.course_code.choices = [(course.course_code, course.course_code) for course in Course.query.all()]
+    form.examiner_id.choices = [(examiner.id, examiner.name) for examiner in User.query.filter_by(role='examiner').all()]
+
+    if form.validate_on_submit():
+        schedule.exam_date = form.exam_date.data
+        schedule.start_time = form.start_time.data
+        schedule.end_time = form.end_time.data
+        schedule.venue = form.venue.data
+        schedule.course_code = form.course_code.data
+        schedule.examiner_id = form.examiner_id.data
+        db.session.commit()
+        flash('Schedule updated successfully!', 'success')
+        return redirect(url_for('main.view_schedule'))
+
+    return render_template('add_edit_schedule.html', form=form, title="Edit Schedule")

@@ -9,7 +9,6 @@
                 <tr>
                     <th>Select</th>
                     <th>Course Code</th>
-                    <th>Question Text</th>
                     <th>File</th>
                     <th>Status</th>
                 </tr>
@@ -21,16 +20,8 @@
                         <input type="checkbox" name="question_ids" value="{{ question.id }}">
                     </td>
                     <td>{{ question.course_code }}</td>
-                    <td>{{ question.question_text }}</td>
                     <td>
-                        {% if question.file_name %}
-                            <!-- Link to open the PDF in a new window/tab -->
-                            <a href="{{ url_for('static', filename='uploads/' ~ question.file_name) }}" target="_blank">
-                                View File
-                            </a>
-                        {% else %}
-                            No file uploaded
-                        {% endif %}
+                        <a href="{{ url_for('question.view_file', filename=question.file_name) }}" target="_blank">View File</a>
                     </td>
                     <td>{{ question.confirm_status }}</td>
                 </tr>

@@ -3,6 +3,7 @@ from .course import Course
 from .notification import Notification
 from .system_settings import SystemSetting
 from .question import Question
+from .schedule import Schedule
 
 __all__ = [
     'User',
@@ -10,5 +11,6 @@ __all__ = [
     'Course',
     'Notification',
     'SystemSetting',
-    'Question'
+    'Question',
+    'Schedule'
 ]

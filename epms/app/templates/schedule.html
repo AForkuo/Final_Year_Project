@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <!-- Toggle Buttons -->
+ <div class="container my-3">
+    {% if current_user.role == 'admin' %}
+    <button class="btn btn-primary" onclick="location.href='{{ url_for('main.add_schedule') }}';">
+     Add/Edit Schedule
+    </button>
+{% endif %}
+    <button id="toggle-calendar" class="btn btn-primary">Calendar View</button>
+    <button id="toggle-table" class="btn btn-secondary">Table View</button>
+</div>
+
+<!-- Schedule Filter Form -->
+<form method="GET" action="{{ url_for('main.view_schedule') }}" class="form-inline mb-0">
+    
+            <div class="form-control mb-2">
+                <input type="date" name="exam_date" placeholder="Select Date" value="{{ request.args.get('exam_date', '') }}">
+            </div>
+            <div class="form-control mb-2">
+                <select name="course_code" class="custom-select mr-sm-2">
+                    <option value="">All Courses</option>
+                    {% for course in courses %}
+                        <option value="{{ course.course_code }}" {% if request.args.get('course_code') == course.course_code %}selected{% endif %}>{{ course.course_code }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Filter</button>
+           
+</form>
+
+
+<!-- Calendar View -->
+<div id='calendar'></div>
+
+ <!-- Table View -->
+ <div id="table-view" class="container mt-3">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Venue</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+            <tr>
+                <td>{{ schedule.course_code }}</td>
+                <td>{{ schedule.exam_date }}</td>
+                <td>{{ schedule.start_time }} - {{ schedule.end_time }}</td>
+                <td>{{ schedule.venue }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+ <!-- Event Details Modal -->
+ <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventModalLabel">Exam Details</h5>
+            </div>
+            <div class="modal-body">
+                <p id="eventTitle"></p>
+                <p id="eventDescription"></p>
+                <p id="eventTime"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                {% for schedule in schedules %}
+                {
+                    title: '{{ schedule.course_code }}',
+                    start: '{{ schedule.exam_date }}T{{ schedule.start_time }}',
+                    end: '{{ schedule.exam_date }}T{{ schedule.end_time }}',
+                    description: '{{ schedule.venue }} - {{ schedule.course_code }}',
+                },
+                {% endfor %}
+            ],
+            eventClick: function(info) {
+                    // Set modal content
+                    document.getElementById('eventTitle').innerText = info.event.title;
+                    document.getElementById('eventDescription').innerText = info.event.extendedProps.description;
+                    document.getElementById('eventTime').innerText = `Start: ${info.event.start.toLocaleString()} End: ${info.event.end.toLocaleString()}`;
+
+                    // Show modal
+                    var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+                    eventModal.show();
+                }
+        });
+
+        calendar.render();
+
+        // Toggle between Calendar and Table views
+        document.getElementById('toggle-calendar').addEventListener('click', function() {
+                document.getElementById('calendar').style.display = 'block';
+                document.getElementById('table-view').style.display = 'none';
+            });
+
+            document.getElementById('toggle-table').addEventListener('click', function() {
+                document.getElementById('calendar').style.display = 'none';
+                document.getElementById('table-view').style.display = 'block';
+            });
+
+            // Show the calendar view by default
+            document.getElementById('calendar').style.display = 'block';
+            document.getElementById('table-view').style.display = 'none';
+    });
+</script>
+
+
+
+
+
+{% endblock %}

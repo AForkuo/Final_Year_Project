@@ -14,7 +14,7 @@ class Config:
     ALLOWED_EXTENSIONS = {'.pdf', '.doc', '.docx', '.txt'}
     
 
-    MAIL_SERVER ='live.smtp.mailtrap.io'
+    MAIL_SERVER='live.smtp.mailtrap.io'
     MAIL_PORT = 587
     MAIL_USERNAME = 'api'
     MAIL_PASSWORD = '7a1b87f33570d746d78b533a11a53372'

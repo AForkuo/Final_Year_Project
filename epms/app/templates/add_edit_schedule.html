@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.exam_date.label(class="form-label") }}
+            {{ form.exam_date(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.start_time.label(class="form-label") }}
+            {{ form.start_time(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.end_time.label(class="form-label") }}
+            {{ form.end_time(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.venue.label(class="form-label") }}
+            {{ form.venue(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.course_code.label(class="form-label") }}
+            {{ form.course_code(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.examiner_id.label(class="form-label") }}
+            {{ form.examiner_id(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+    </form>
+{% endblock %}

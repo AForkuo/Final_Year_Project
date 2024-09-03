@@ -1,7 +1,7 @@
 from app.models.user import User
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SelectField, SubmitField, TextAreaField, DateTimeField, IntegerField
-from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional, NumberRange
+from wtforms import StringField, PasswordField, SelectField, SubmitField, TextAreaField, DateTimeField, IntegerField, DateField, TimeField
+from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional, NumberRange, ValidationError
 from flask_wtf.file import FileAllowed, FileField, FileRequired
 from app.models.course import Course
 
@@ -46,7 +46,6 @@ class NotificationForm(FlaskForm):
 
 class UploadQuestionForm(FlaskForm):
     course = SelectField('Course', coerce=str, validators=[DataRequired()])
-    question_text = TextAreaField('Question Text', validators=[Optional()])
     question_file = FileField('Question File', validators=[
         FileRequired(),
         FileAllowed(['pdf', '.doc', 'docx', 'txt'], 'Only document, and text files are allowed!')
@@ -91,7 +90,26 @@ class ForgotPasswordForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Send Reset Link')
 
+class RequestResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('There is no account with that email. You must register first.')
+
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('New Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
+
+
+class ScheduleForm(FlaskForm):
+    exam_date = DateField('Exam Date', validators=[DataRequired()])
+    start_time = TimeField('Start Time', validators=[DataRequired()])
+    end_time = TimeField('End Time', validators=[DataRequired()])
+    venue = StringField('Venue', validators=[DataRequired()])
+    course_code = SelectField('Course Code', validators=[DataRequired()], choices=[])  # Populate dynamically
+    examiner_id = SelectField('Examiner', validators=[DataRequired()], choices=[])  # Populate dynamically
+    submit = SubmitField('Save')
