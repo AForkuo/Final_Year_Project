@@ -3,8 +3,9 @@ from datetime import datetime
 from functools import wraps
 from app.models.schedule import Schedule
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
 import app
-from app.forms import AddCourseForm, ScheduleForm, UploadQuestionForm
+from app.forms import AddCourseForm, RegistrationForm, ScheduleForm, UploadQuestionForm
 from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
 from flask_login import login_required, current_user
 from app.models import User, Question, Course, Notification
@@ -58,10 +59,12 @@ def dashboard():
 @main_bp.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
+    form = RegistrationForm()
     if request.method == 'POST':
         try:
             current_user.username = request.form.get('username')
             current_user.email = request.form.get('email')
+
             # Update other fields as necessary
             db.session.commit()
             flash('Your profile has been updated.', 'success')
@@ -71,7 +74,31 @@ def profile():
             flash(f'Error updating profile: {str(e)}', 'error')
             return redirect(url_for('main.profile'))
 
-    return render_template('profile.html', user=current_user, title="Profile")
+    return render_template('profile.html', user=current_user, form=form, title="Profile")
+
+@main_bp.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = RegistrationForm()
+    if request.method == 'POST':
+        user = User.query.get(current_user.user_id)
+        try:
+            if not check_password_hash(user.password, request.form.get('current_password')):
+                flash('Incorrect old password. Please try again.', 'danger')
+                return redirect(url_for('main.change_password'))
+        
+            user.password = generate_password_hash(request.form.get('new_password'))
+            db.session.commit()
+
+            flash('Your password has been changed.', 'success')
+            return redirect(url_for('main.profile'))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating profile: {str(e)}', 'error')
+            return redirect(url_for('main.profile'))
+
+    return render_template('profile.html', user=current_user, form=form, title="Profile")
 
 
 @main_bp.route('/set_submission_date', methods=['GET', 'POST'])
@@ -92,13 +119,6 @@ def set_submission_date():
     courses = Course.query.all()
     return render_template('set_submission_date.html', courses=courses)
 
-
-
-@main_bp.route('/courses')
-@login_required
-def view_courses():
-    courses = Course.query.all()
-    return render_template('view_courses.html', courses=courses, title="Courses")
 
 
 

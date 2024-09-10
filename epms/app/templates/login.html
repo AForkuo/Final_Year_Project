@@ -15,6 +15,20 @@
         <div class="logo">
             <h1>EPMS</h1>
         </div>
+        
+        <div class="container mt-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} fade show" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+
         <form method="POST" action="{{ url_for('auth.login') }}">
             {{ form.hidden_tag() }}
             <div>
@@ -33,5 +47,15 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
 	</div>
+
+    <script>
+        // JavaScript to make alerts disappear after 3 seconds
+        $(document).ready(function() {
+            // Hide alert after 5 seconds
+            setTimeout(function() {
+                $(".alert").alert('close');
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

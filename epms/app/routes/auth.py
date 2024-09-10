@@ -53,6 +53,8 @@ def forgot_password():
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        if user is None:
+            flash('That is an invalid or expired token', 'warning')
         try:
             send_reset_email(user)
             flash('An email has been sent with instructions to reset your password.', 'info')

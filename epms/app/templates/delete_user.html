@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mt-5">Delete User</h2>
+            <p>Are you sure you want to delete the user: <strong>{{ user.username }}</strong>?</p>
+            
+            <form method="POST" action="{{ url_for('admin.delete_user', user_id=user.user_id) }}">
+                {{ form.hidden_tag() }}
+                <button type="submit" class="btn btn-danger">Yes, Delete User</button>
+                <a href="{{ url_for('admin.view_users') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+{% endblock %}

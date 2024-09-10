@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h2>Delete Course</h2>
+        <p>Are you sure you want to delete the course: <strong>{{ course.course_title }}</strong>?</p>
+        
+        <form method="POST" action="{{ url_for('admin.delete_course', course_id=course.course_code) }}">
+            {{ form.hidden_tag() }}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{{ url_for('admin.view_course') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

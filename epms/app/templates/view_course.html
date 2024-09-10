@@ -1,0 +1,31 @@
+<!-- templates/view_courses.html -->
+{% extends "base.html" %}
+
+{% block content %}
+{% if courses %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Course Code</th>
+                    <th>Credit Hours</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.course_title }}</td>
+                    <td>{{ course.course_code }}</td>
+                    <td>{{ course.credit_hours }}</td>
+                    <td>
+                        <a href="{{ url_for('admin.delete_course', course_id=course.course_code) }}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No courses available.</p>
+    {% endif %}
+{% endblock %}

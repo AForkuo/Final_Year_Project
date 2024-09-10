@@ -1,5 +1,5 @@
 import os
-from app.forms import RegistrationForm, SystemSettingsForm
+from app.forms import AddCourseForm, RegistrationForm, SystemSettingsForm
 from app.models.course import Course
 from app.models.system_settings import SystemSetting
 from app.models.user import User
@@ -81,22 +81,32 @@ def settings():
     return render_template('settings.html', form=form, title="System Settings")
 
 
-@admin_bp.route('/delete_courses')
+@admin_bp.route('/delete_course/<string:course_id>', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def delete_courses():
-    courses = Course.query.all()
+def delete_course(course_id):
+    form = AddCourseForm()
+    course = Course.query.get_or_404(course_id)  # Get the course or show a 404 error
+    
     if request.method == 'POST':
-        selected_courses = request.form.getlist('selected_courses')
-        if selected_courses:
-            # Logic for deleting the selected courses
-            for course_code in selected_courses:
-                course = Course.query.get(course_code)
-                db.session.delete(course)
-                db.session.commit()
-            flash(f"Deleted {len(selected_courses)} course(s).")
-            return redirect(url_for('delete_courses'))
-    return render_template('delete_courses.html', courses=courses, title="Delete Course")
+        try:
+            db.session.delete(course)
+            db.session.commit()
+            flash(f'Course {course.name} has been deleted.', 'success')
+            return redirect(url_for('admin.view_course'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error deleting course: {e}', 'danger')
+        
+    return render_template('delete_course.html', course=course, form=form, title="Delete Course")
+
+@admin_bp.route('/view_course')
+@login_required
+@admin_required
+def view_course():
+    courses = Course.query.all()
+    # Add logic for assigning venues
+    return render_template("view_course.html", courses=courses, title="Courses")
 
 
 @admin_bp.route('/course_management')
@@ -113,3 +123,28 @@ def course_management():
 def user_management():
     # Add logic for assigning venues
     return render_template("user_management.html", title="User Management")
+
+
+@admin_bp.route('/view_users')
+@login_required
+@admin_required
+def view_users():
+    users = User.query.all()
+    # Add logic for assigning venues
+    return render_template("view_users.html", title="Users", users=users)
+
+
+@admin_bp.route('/delete_user/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)
+    form = RegistrationForm()
+    if request.method == 'POST':
+        db.session.delete(user)
+        db.session.commit()
+        
+        flash(f'User {user.username} has been deleted successfully!', 'success')
+        return redirect(url_for('admin.view_users'))  # Redirect to the user list or dashboard
+
+    return render_template('delete_user.html', title="Delete User", user=user, form=form)

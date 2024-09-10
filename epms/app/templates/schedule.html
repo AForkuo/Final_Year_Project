@@ -1,44 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="wrapper d-flex align-items-stretch">
+        <!-- Toggle Buttons -->
+        <div class="container my-3">
+            {% if current_user.role == 'admin' %}
+            <button class="btn btn-primary" onclick="location.href='{{ url_for('main.add_schedule') }}';">
+            Add/Edit Schedule
+            </button>
+        {% endif %}
+            <button id="toggle-calendar" class="btn btn-primary">Calendar View</button>
+            <button id="toggle-table" class="btn btn-secondary">Table View</button>
+        </div>
 
- <!-- Toggle Buttons -->
- <div class="container my-3">
-    {% if current_user.role == 'admin' %}
-    <button class="btn btn-primary" onclick="location.href='{{ url_for('main.add_schedule') }}';">
-     Add/Edit Schedule
-    </button>
-{% endif %}
-    <button id="toggle-calendar" class="btn btn-primary">Calendar View</button>
-    <button id="toggle-table" class="btn btn-secondary">Table View</button>
-</div>
-
-<!-- Schedule Filter Form -->
-<form method="GET" action="{{ url_for('main.view_schedule') }}" class="form-inline mb-0">
-    
-            <div class="form-control mb-2">
-                <input type="date" name="exam_date" placeholder="Select Date" value="{{ request.args.get('exam_date', '') }}">
-            </div>
-            <div class="form-control mb-2">
-                <select name="course_code" class="custom-select mr-sm-2">
+        <!-- Schedule Filter Form -->
+        <form method="GET" action="{{ url_for('main.view_schedule') }}" class="form-inline mb-0 pt-1 wrapper d-flex align-items-stretch">
+                <input type="date" class="form-control mb-1" name="exam_date" placeholder="Select Date" value="{{ request.args.get('exam_date', '') }}">   <select name="course_code" class="form-control mb-1 px-4 custom-select mr-sm-2">
                     <option value="">All Courses</option>
                     {% for course in courses %}
                         <option value="{{ course.course_code }}" {% if request.args.get('course_code') == course.course_code %}selected{% endif %}>{{ course.course_code }}</option>
                     {% endfor %}
                 </select>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Filter</button>
-           
-</form>
-
+            <button type="submit" class="btn btn-primary">Filter</button>     
+        </form>
+    </div>
 
 <!-- Calendar View -->
-<div id='calendar'></div>
+<div id='calendar' class="bg-light p-2"></div>
 
  <!-- Table View -->
  <div id="table-view" class="container mt-3">
-    <table class="table table-bordered">
+    <table class="table table-bordered bg-light">
         <thead>
             <tr>
                 <th>Course</th>
@@ -65,12 +57,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="eventModalLabel">Exam Details</h5>
+                <h3 class="modal-title" id="eventModalLabel">Exam Details</h3>
             </div>
             <div class="modal-body">
-                <p id="eventTitle"></p>
-                <p id="eventDescription"></p>
-                <p id="eventTime"></p>
+                <b>Course Code:</b> <p id="eventTitle"></p>
+                <b>Venue:</b><p id="eventDescription"></p>
+                <b>Time:</b><p id="eventTime"></p>
             </div>
         </div>
     </div>
@@ -90,7 +82,7 @@
                     title: '{{ schedule.course_code }}',
                     start: '{{ schedule.exam_date }}T{{ schedule.start_time }}',
                     end: '{{ schedule.exam_date }}T{{ schedule.end_time }}',
-                    description: '{{ schedule.venue }} - {{ schedule.course_code }}',
+                    description: '{{ schedule.venue }}',
                 },
                 {% endfor %}
             ],
@@ -98,7 +90,7 @@
                     // Set modal content
                     document.getElementById('eventTitle').innerText = info.event.title;
                     document.getElementById('eventDescription').innerText = info.event.extendedProps.description;
-                    document.getElementById('eventTime').innerText = `Start: ${info.event.start.toLocaleString()} End: ${info.event.end.toLocaleString()}`;
+                    document.getElementById('eventTime').innerText = info.event.start.toLocaleString();
 
                     // Show modal
                     var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));

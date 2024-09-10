@@ -2,7 +2,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<button type="button" id="edit-button" onclick="enableFields()"><i class="fas fa-edit"></i> Edit Profile</button>
     <form method="POST" action="{{ url_for('main.profile') }}">
+        {{ form.hidden_tag() }}
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" value="{{ current_user.username }}" disabled required>
@@ -13,18 +15,29 @@
         </div>
         <!-- Add other fields as necessary -->
         <div class="form-group">
-            <button type="button" id="edit-button" onclick="enableFields()"><i class="fas fa-edit"></i> Edit Profile</button>
             <button type="submit" id="save-button" style="display:none;"><i class="fas fa-save"></i> Save Changes</button>
         </div>
     </form>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="messages">
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+    <hr>
+    <h3>Change Password</h3>
+
+    <form method="POST" action="{{ url_for('main.change_password') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="current_password">Password</label>
+            <input type="password" id="password" name="current_password" value="" disabled required>
+        </div>
+        <div class="form-group">
+            <label for="new_password">New Password</label>
+            <input type="password" id="password" name="new_password" value="" disabled required>
+        </div><div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="password" name="confirm_password" value="" disabled required>
+        </div>
+        <!-- Add other fields as necessary -->
+        <div class="form-group">
+            <button type="submit" id="save-password-button" style="display:none;"><i class="fas fa-save"></i> Save Changes</button>
+        </div>
+    </form>
 {% endblock %}

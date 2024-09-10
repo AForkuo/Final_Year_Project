@@ -30,7 +30,7 @@
               field.disabled = false;
           });
           document.getElementById('save-button').style.display = 'inline-block';
-          document.getElementById('edit-button').style.display = 'none';
+          document.getElementById('save-password-button').style.display = 'inline-block';
       }
 
       function togglePrintButton() {
@@ -59,8 +59,10 @@
 
   </head>
   <body>
-		<!-- Sidebar Starts Here-->
+		
 		<div class="wrapper d-flex align-items-stretch">
+
+      <!-- Sidebar Starts Here-->
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
           <!-- <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="logo" /> -->
@@ -94,13 +96,6 @@
                 <li>
                   <a href="{{ url_for('main.printing_and_dist') }}">Printing and Distribution</a>
                 </li>
-            {% elif current_user.role == 'chief_invigilator' %}
-                <li>
-                  <a href="#">Invigilator Management</a>
-                </li>
-                <li>
-                  <a href="#">Venue Management</a>
-                </li>
             {% endif %}
             <li>
               <a href="{{ url_for('main.view_schedule') }}">Exam Schedule</a>
@@ -124,22 +119,26 @@
     	</nav>
 
         <!-- Navbar starts here  -->
-      <!-- <div id="content" class="p-4 p-md-5">
+      <!-- <div id="content" class="p-4 p-md-5"> -->
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-
-            <button type="button" id="sidebarCollapse" class="btn btn-primary">
-              <i class="fa fa-bars"></i>
-              <span class="sr-only">Toggle Menu</span>
-            </button>
-            <h3>{{ title }}</h3>
-          </div>
-        </nav> -->
+        
 
         <!-- Page Content Goes Here -->
-      <div class="container main shadow">
-        <div class="container mt-4">
+      <div class="container main">
+
+        <div class="p-1 mt-4">
+          <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container-fluid">
+              <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">Toggle Menu</span>
+              </button>
+              <h3>{{ title }}</h3>
+            </div>
+          </nav>
+        </div>
+
+        <div class="container p-1">
           {% with messages = get_flashed_messages(with_categories=true) %}
               {% if messages %}
                   {% for category, message in messages %}
@@ -149,14 +148,13 @@
                   {% endfor %}
               {% endif %}
           {% endwith %}
-      </div>
-        <h3>{{ title }}</h3>
-        <hr />
+        </div>
+        <!-- <h3>{{ title }}</h3>
+        <hr /> -->
         {% block content %} {% endblock content %}
       </div>
 
-      </div>
-		</div>
+    </div>
 
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/popper.js') }}"></script>
@@ -171,7 +169,7 @@
               $(".alert").alert('close');
           }, 2000);
       });
-  </script>
+   </script>
   
   </body>
 </html>
