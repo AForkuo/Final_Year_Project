@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="container">
-        <table class="table">
+    <button class="btn btn-primary mb-4" onclick="location.href='{{ url_for('question.upload_questions') }}';">
+        <i class="bi bi-cloud-arrow-up-fill"></i> Upload Questions
+     </button>
+
+        <table class="table table-bordered bg-light">
             <thead>
                 <tr>
                     <th>Course Code</th>

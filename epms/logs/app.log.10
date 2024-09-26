@@ -1,4 +1,4 @@
-2024-09-10 01:11:06,372 ERROR: Exception on /admin/user_management [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+2024-09-10 01:43:29,367 ERROR: Exception on /admin/delete_user/5 [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -18,9 +18,9 @@ Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/admin.py", line 20, in decorated_view
     return f(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/admin.py", line 115, in user_management
-    return render_template("user_management.html", title="User Management")
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/admin.py", line 140, in delete_user
+    return render_template('delete_user.html', title="Delete User", user=user, form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
     return _render(app, template, context)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -31,19 +31,17 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/user_management.html", line 1, in top-level template code
-    {% extends 'base.html' %}
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/delete_user.html", line 1, in top-level template code
+    {% extends "base.html" %}
   File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/base.html", line 154, in top-level template code
     {% block content %} {% endblock content %}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/user_management.html", line 8, in block 'content'
-    <button onclick="location.href='{{ url_for('admin.delete_user', user_id=user.id) }}';">
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'user' is undefined
-2024-09-10 01:11:43,355 ERROR: Exception on /admin/user_management [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/delete_user.html", line 11, in block 'content'
+    {{ form.hidden_tag() }}
+TypeError: FlaskForm.hidden_tag() missing 1 required positional argument: 'self'
+2024-09-10 01:46:07,828 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
+2024-09-10 02:04:57,782 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
+2024-09-10 02:05:04,736 ERROR: Exception on /admin/course_management [GET] [in /home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -63,9 +61,9 @@ Traceback (most recent call last):
   File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/admin.py", line 20, in decorated_view
     return f(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/admin.py", line 115, in user_management
-    return render_template("user_management.html", title="User Management")
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/routes/admin.py", line 112, in course_management
+    return render_template("course_management.html", title="Course Management")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/templating.py", line 150, in render_template
     return _render(app, template, context)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -76,17 +74,21 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/user_management.html", line 1, in top-level template code
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/course_management.html", line 1, in top-level template code
     {% extends 'base.html' %}
   File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/base.html", line 154, in top-level template code
     {% block content %} {% endblock content %}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/user_management.html", line 8, in block 'content'
-    <button onclick="location.href='{{ url_for('admin.delete_user', user_id=user.id) }}';">
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/epms/app/templates/course_management.html", line 8, in block 'content'
+    <button onclick="location.href='{{ url_for('admin.delete_courses') }}';">
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/jinja2/environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'user' is undefined
-2024-09-10 01:21:53,763 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
-2024-09-10 01:24:11,808 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/abraham-forkuo/Documents/EYP-EPMS/venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'admin.delete_courses'. Did you mean 'admin.delete_course' instead?
+2024-09-10 02:05:57,238 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]

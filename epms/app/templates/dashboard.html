@@ -13,7 +13,7 @@
                   <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Total Questions</p>
                   <div class="d-flex align-items-center my-2">
                       <span class="badge bg-success-soft text-xxs">
-                        <i class="fas fa-upload"></i>
+                        <i class="fas fa-chart-bar" style="color: blue; font-size: 24px;"></i>
                       </span>
                   </div>
                   <h4 class="font-weight-bolder mb-0">
@@ -40,7 +40,7 @@
             <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Approved Questions</p>
             <div class="d-flex align-items-center my-2">
               <span class="badge bg-success-soft text-xxs">
-                <i class="fas fa-check-circle text-success"></i>
+                <i class="fas fa-check-circle text-success" style="font-size: 24px;"></i>
               </span>
             </div>
             <h4 class="font-weight-bolder mb-0">
@@ -68,7 +68,7 @@
             <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Pending Questions</p>
             <div class="d-flex align-items-center my-2">
               <span class="badge bg-danger-soft text-xxs">
-                <i class="fas fa-hourglass-half text-warning"></i>
+                <i class="fas fa-hourglass-half text-warning" style="font-size: 24px;"></i>
               </span>
             </div>
             <h4 class="font-weight-bolder mb-0">
@@ -86,6 +86,9 @@
   </div>
   
   
+
+
+
     </div>
     {% elif current_user.role == 'examiner' %}
     <div class="col-xl-4 col-sm-6 drop-zone">
@@ -94,15 +97,12 @@
       <div class="row">
         <div class="col-8">
           <div class="numbers">
-            <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Sales</p>
+            <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">My Uploads</p>
             <div class="d-flex align-items-center my-2">
-              <span class="badge bg-success-soft text-xxs">
-                <i class="fas fa-angle-up text-success" aria-hidden="true"></i>
-              </span>
-              <span class="text-xs font-weight-bolder ms-1">+5,42%</span>
+              <i class="fas fa-upload" style="font-size: 24px;"></i>
             </div>
             <h4 class="font-weight-bolder mb-0">
-              $103,430
+              {{ my_uploads }}
             </h4>
           </div>
         </div>
@@ -123,15 +123,12 @@
         <div class="row">
           <div class="col-8">
             <div class="numbers">
-              <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Sales</p>
+              <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Questions Approved</p>
               <div class="d-flex align-items-center my-2">
-                <span class="badge bg-success-soft text-xxs">
-                  <i class="fas fa-angle-up text-success" aria-hidden="true"></i>
-                </span>
-                <span class="text-xs font-weight-bolder ms-1">+5,42%</span>
+                <i class="fas fa-check-circle" style="color: green; font-size: 24px;" ></i>
               </div>
               <h4 class="font-weight-bolder mb-0">
-                $103,430
+                {{ my_questions_confirmed }}
               </h4>
             </div>
           </div>
@@ -152,15 +149,12 @@
         <div class="row">
           <div class="col-8">
             <div class="numbers">
-              <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Sales</p>
+              <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Printed</p>
               <div class="d-flex align-items-center my-2">
-                <span class="badge bg-success-soft text-xxs">
-                  <i class="fas fa-angle-up text-success" aria-hidden="true"></i>
-                </span>
-                <span class="text-xs font-weight-bolder ms-1">+5,42%</span>
+                <i class="fas fa-print" style="font-size: 24px;"></i>
               </div>
               <h4 class="font-weight-bolder mb-0">
-                $103,430
+                {{ my_questions_printed }}
               </h4>
             </div>
           </div>
@@ -185,7 +179,7 @@
               <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Total Users</p>
               <div class="d-flex align-items-center my-2">
                 <span class="badge bg-success-soft text-xxs">
-                  <i class="fas fa-users text-info"></i> 
+                  <i class="fas fa-users text-info" style="font-size: 24px;"></i> 
                 </span>
               </div>
               <h4 class="font-weight-bolder mb-0">
@@ -213,7 +207,7 @@
                 <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Total Courses</p>
                 <div class="d-flex align-items-center my-2">
                   <span class="badge bg-success-soft text-xxs">
-                    <i class="fas fa-book text-primary"></i>
+                    <i class="fas fa-graduation-cap" style="font-size: 24px;"></i>
                   </span>
                 </div>
                 <h4 class="font-weight-bolder mb-0">
@@ -238,23 +232,15 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">User Roles</p>
+                <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Total Questions</p>
                 <div class="d-flex align-items-center my-2">
                   <span class="badge bg-success-soft text-xxs">
-                    <i class="fas fa-chart-pie text-primary"></i>
+                    <i class="fas fa-clipboard-list" style="font-size: 24px;"></i>
                   </span>
-                  <p class="mb-0">
-                    <small>Chief Examiners: {{ chief_examiners }}</small>
-                  <br/>
-                    <small>Examiners: {{ examiners }}</small>
-                  <br/>
-                    <small>Printing Agents: {{ printing_agents }}</small>
-                  <br/>
-                    <small>Administrators: {{ admins }}</small>
-                  </p>
-                  
                 </div>
-                
+                <h4 class="font-weight-bolder mb-0">
+                  {{ total_uploaded_questions }}
+                </h4>
               </div>
             </div>
             <div class="col-4 text-end">
@@ -267,6 +253,14 @@
       </div>
       
         </div>
+<hr />
+        <div>
+          <canvas id="questionsChart" width="400" height="100"></canvas>
+          <br />
+          <!-- <canvas id="usersChart" width="200" height="100"></canvas>
+          <br />
+          <canvas id="coursesChart" width="400" height="200"></canvas>  -->
+        </div>
 
         {% elif current_user.role == 'printing_agent' %}
         <div class="col-xl-4 col-sm-6 drop-zone">
@@ -278,7 +272,7 @@
                 <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Total Questions</p>
                 <div class="d-flex align-items-center my-2">
                   <span class="badge bg-success-soft text-xxs">
-                    <i class="fas fa-upload"></i>
+                    <i class="fas fa-upload" style="font-size: 24px;"></i>
                   </span>
                 </div>
                 <h4 class="font-weight-bolder mb-0">
@@ -306,7 +300,7 @@
                   <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Printed Questions</p>
                   <div class="d-flex align-items-center my-2">
                     <span class="badge bg-success-soft text-xxs">
-                      <i class="fas fa-print text-success"></i>
+                      <i class="fas fa-print text-success" style="font-size: 24px;"></i>
                     </span>
                   </div>
                   <h4 class="font-weight-bolder mb-0">
@@ -334,7 +328,7 @@
                   <p class="text-sm mb-0 text-capitalize text-dark font-weight-bold">Pending Questions</p>
                   <div class="d-flex align-items-center my-2">
                     <span class="badge bg-success-soft text-xxs">
-                      <i class="fas fa-clock text-warning"></i>
+                      <i class="fas fa-clock text-warning" style="font-size: 24px;"></i>
                     </span>
                   </div>
                   <h4 class="font-weight-bolder mb-0">
@@ -357,7 +351,115 @@
   </div>
   
   
+
+  <script>
+    // Chart for questions (uploaded, approved, pending)
+    var ctx = document.getElementById('questionsChart').getContext('2d');
+    var questionsChart = new Chart(ctx, {
+        type: 'bar', // Bar chart type
+        data: {
+            labels: ['Total Uploaded', 'Approved', 'Pending Approval', 'Printed', 'Pending Printing'],
+            datasets: [{
+                label: 'Questions',
+                data: [
+                    {{ total_uploaded_questions }},
+                    {{ total_approved_questions }},
+                    {{ total_pending_questions }},
+                    {{ printed_questions }},
+                    {{ pending_printing_questions }}
+                ],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Chart for user roles (admins, examiners, etc.)
+    var ctx2 = document.getElementById('usersChart').getContext('2d');
+    var usersChart = new Chart(ctx2, {
+        type: 'doughnut', // Pie chart type
+        data: {
+            labels: ['Chief Examiners', 'Examiners', 'Printing Agents', 'Admins'],
+            datasets: [{
+                label: 'Users by Role',
+                data: [
+                    {{ chief_examiners }},
+                    {{ examiners }},
+                    {{ printing_agents }},
+                    {{ admins }}
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,   // Makes it responsive
+            maintainAspectRatio: false // Allows resizing without maintaining the aspect ratio
+        }
+    });
+
+    // New Chart for courses (with/without questions)
+    var ctx3 = document.getElementById('coursesChart').getContext('2d');
+        var coursesChart = new Chart(ctx3, {
+            type: 'pie', // Pie chart type
+            data: {
+                labels: ['Courses with Questions', 'Courses without Questions'],
+                datasets: [{
+                    label: 'Courses',
+                    data: [
+                        {{ courses_with_questions }},
+                        {{ courses_without_questions }}
+                    ],
+                    backgroundColor: [
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,   // Makes it responsive
+                maintainAspectRatio: false // Allows resizing without maintaining the aspect ratio
+           }
+        });
+</script>
+
+
 {% endblock %}
 
 
-</html>

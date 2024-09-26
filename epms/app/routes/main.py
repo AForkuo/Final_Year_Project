@@ -1,12 +1,13 @@
 # routes/main.py
 from datetime import datetime
 from functools import wraps
+from operator import and_
 from app.models.schedule import Schedule
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 import app
 from app.forms import AddCourseForm, RegistrationForm, ScheduleForm, UploadQuestionForm
-from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
+from flask import Blueprint, render_template, request, redirect, url_for, abort, flash, jsonify
 from flask_login import login_required, current_user
 from app.models import User, Question, Course, Notification
 from app.utils.notifications import send_notification
@@ -29,20 +30,34 @@ def dashboard():
     examiners = User.query.filter_by(role='examiner').count()
     printing_agents = User.query.filter_by(role='printing_agent').count()
     admins = User.query.filter_by(role='admin').count()
+    my_uploads = Question.query.filter_by(examiner_id=current_user.user_id).count()
+    my_questions_confirmed = Question.query.filter(
+        and_(
+            Question.examiner_id == current_user.user_id,
+            Question.confirm_status == 'Confirmed'
+        )
+).count()
+    my_questions_printed = Question.query.filter(
+        and_(
+            Question.examiner_id == current_user.user_id,
+            Question.print_status == 'printed'
+        )
+).count()
 
-    
+
+    # New course-related statistics
+    courses_with_questions = Course.query.join(Question).distinct().count()
+    courses_without_questions = total_courses - courses_with_questions
+
     data = {}
     if current_user.role == 'chief_examination_officer':
-        # data['pending_questions'] = Question.query.filter_by(status='pending').all()
         data['courses'] = Course.query.all()
-    # elif current_user.role == 'examiner':
-        # data['my_questions'] = Question.query.filter_by(examiner_id=current_user.user_id).all()
     elif current_user.role == 'admin':
         data['users'] = User.query.all()
-    # elif current_user.role == 'printing_agent':
-    #     data['approved_questions'] = Question.query.filter_by(status='approved').all()
+
+    # Pass the new course data to the template
     return render_template('dashboard.html',
-                            data=data, title="Dashboard",
+                            data=data,
                             total_uploaded_questions=total_uploaded_questions,
                             total_approved_questions=total_approved_questions,
                             total_pending_questions=total_pending_questions,
@@ -53,7 +68,17 @@ def dashboard():
                             chief_examiners=chief_examiners,
                             examiners=examiners,
                             printing_agents=printing_agents,
-                            admins=admins)
+                            admins=admins,
+                            courses_with_questions=courses_with_questions,
+                            courses_without_questions=courses_without_questions,
+                            my_uploads=my_uploads,
+                            my_questions_confirmed=my_questions_confirmed,
+                            my_questions_printed=my_questions_printed,
+                            title="Dashboard")
+
+
+
+
 
 
 @main_bp.route('/profile', methods=['GET', 'POST'])

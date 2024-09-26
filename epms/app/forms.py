@@ -113,3 +113,4 @@ class ScheduleForm(FlaskForm):
     course_code = SelectField('Course Code', validators=[DataRequired()], choices=[])  # Populate dynamically
     examiner_id = SelectField('Examiner', validators=[DataRequired()], choices=[])  # Populate dynamically
     submit = SubmitField('Save')
+

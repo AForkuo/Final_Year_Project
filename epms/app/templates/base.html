@@ -7,9 +7,15 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 		
+    <!-- font awesome cdns -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- css file -->
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -21,6 +27,10 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    
+    <!-- chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 
     <script>
@@ -80,7 +90,7 @@
                 </li>
             {% elif current_user.role == 'examiner' %}
                 <li>
-                  <a href="{{ url_for('question.uploads') }}">Uploads</a>
+                  <a href="{{ url_for('question.my_uploads') }}">My Uploads</a>
                 </li>
             {% elif current_user.role == 'admin' %}
                 <li>
@@ -89,16 +99,13 @@
                 <li>
                   <a href="{{ url_for('admin.course_management') }}">Course Management</a>
 	              </li>
-                <li>
-                  <a href="#">Security and Privacy</a>
-	              </li>
             {% elif current_user.role == 'printing_agent' %}
                 <li>
                   <a href="{{ url_for('main.printing_and_dist') }}">Printing and Distribution</a>
                 </li>
             {% endif %}
             <li>
-              <a href="{{ url_for('main.view_schedule') }}">Exam Schedule</a>
+              <a href="{{ url_for('main.view_schedule') }}">Examination Schedule</a>
 	          </li>
 	          <li>
               <a href="{{ url_for('notifications.list_notifications') }}">Notification</a>
