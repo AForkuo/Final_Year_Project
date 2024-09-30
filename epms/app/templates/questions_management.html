@@ -5,11 +5,8 @@
     <button onclick="location.href='{{ url_for('question.approve_questions') }}';">
         <i class="fas fa-check"></i> Approve Questions
     </button>
-    <button onclick="location.href='{{ url_for('main.set_deadlines') }}';">
-        <i class="fas fa-clock"></i> Set Submission Deadlines
-    </button>
     <button onclick="location.href='{{ url_for('notifications.add_notification') }}';">
-        <i class="fas fa-bell"></i> Notify Examiners
+        <i class="fas fa-bell"></i> Send Notification
     </button>
 </div>
 {% endblock %}
