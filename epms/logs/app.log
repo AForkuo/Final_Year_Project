@@ -50,3 +50,7 @@ TypeError: list.count() takes exactly one argument (0 given)
 2024-09-30 09:04:41,553 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
 2024-09-30 09:08:19,040 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
 2024-09-30 09:16:01,333 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
+2024-09-30 09:23:39,708 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
+2024-09-30 09:24:41,315 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
+2024-09-30 09:25:21,747 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
+2024-09-30 09:27:16,278 INFO: Application startup [in /home/abraham-forkuo/Documents/EYP-EPMS/epms/app/__init__.py:40]
